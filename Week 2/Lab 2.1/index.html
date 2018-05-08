@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Data Visualisation Exercise 2" />
+    <meta name="keywords"    content="HTML, CSS, D3"/>
+    <meta name="author"      content="Ernest Soo"/>
+
+    <title>Task 2.1 D3 Data Binding</title>
+
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+  </head>
+
+
+  <body>
+
+    <h1>The D3 Journey Starts Here...</h1>
+
+    <script>
+
+        //Initialize Dataset
+        var dataset = [14,5,26,23,9];
+        var limit = 10;
+
+        d3.select("body").selectAll("p")
+            .data(dataset)
+            .enter()
+            .append("p")
+            .text(function(d,i){
+              if(d>limit)
+              {
+                return "Warning: Joe watched " + d + " cat videos today."
+              }else {
+                return "Joe watched " + d + " cat videos today."
+              }
+            })
+            .style("color",function(d){
+              if(d>limit)
+              {
+                return "red";
+              }else {
+                return "black";
+              }
+            });
+
+        console.log(d3.selectAll("p"));
+
+    </script>
+
+    <br>
+    <bf>
+
+    <footer style="color:grey">COS30045 Data Visualisation<br> Joe Bloggs</footer>
+
+  </body>
+
+
+
+
+
+</html>
