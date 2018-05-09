@@ -1,0 +1,22 @@
+
+
+.btn
+{
+	border: 1px solid darkblue;
+	border-radius: 5px;
+	padding: 10px;
+	width: -webkit-min-content;
+	width: -moz-min-content;
+	width: min-content;
+	display: block;
+	color: darkblue;
+}
+
+.btn:hover
+{
+	background: darkblue;
+	color: white;
+	cursor: pointer;
+}
+
+
