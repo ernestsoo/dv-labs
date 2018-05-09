@@ -54,7 +54,6 @@
                      .paddingInner(0.05);
         
     
-      console.log("max",d3.max(dataset));
       var yScale = d3.scaleLinear()
                      .domain([0,d3.max(dataset)])
                      .range([0,h]);
@@ -80,23 +79,27 @@
             return yScale(d);
           })
           .attr("fill","blue")
-          .on("mouseover", function(){
+          .on("mouseover", function(d){
                 d3.select(this)
                     .attr("fill","orange");
-          
-             /*   d3.select(this)
-                    .append("title")
-                    .text(function(d) {
-                        return "This value is " + d ;
-                    }); */
           
                 var xPosition = parseFloat(d3.select(this).attr("x"));
                 var yPosition = parseFloat(d3.select(this).attr("y"));
           
-           
           
-            
-      
+                svg.append("text")
+                    .attr("id","tooltip")
+                    .attr("x",xPosition+16)
+                    .attr("y",yPosition+16)
+                    .text(d);
+          })
+          .on("mouseout",function(d){
+          
+                d3.select(this)
+                    .attr("fill","blue");
+          
+                d3.select("#tooltip").remove();
+          
           });
         
         
@@ -120,10 +123,6 @@
                      .domain([0,d3.max(dataset)])
                      .range([0,h]);
             
-            
-
-            
-            
         }
         
         
@@ -143,6 +142,26 @@
                 .attr("y", function(d){
                     return h - yScale(d);
                 })
+               .on("mouseover", function(d){
+                d3.select(this)
+                    .attr("fill","orange");
+          
+                var xPosition = parseFloat(d3.select(this).attr("x"));
+                var yPosition = parseFloat(d3.select(this).attr("y"));
+          
+          
+                svg.append("text")
+                    .attr("id","tooltip")
+                    .attr("x",xPosition+15)
+                    .attr("y",yPosition+16)
+                    .text(d);
+                })
+                .on("mouseout",function(d){
+                    d3.select(this)
+                        .attr("fill","blue");
+
+                    d3.select("#tooltip").remove();
+                })
                 .merge(bars)
                 .transition()
                 .duration(500)
@@ -157,8 +176,7 @@
                     return yScale(d);
                   })
                 .attr("fill","blue");
-            
-        
+               
         });
         
         d3.select(".btn-remove")
@@ -175,9 +193,7 @@
                 .duration(500)
                 .attr("x", w)
                 .remove();
-            
-            
-        })
+        });
         
         
 
