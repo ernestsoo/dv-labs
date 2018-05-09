@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <meta name="description" content="Data Visualisation Exercise 2" />
+    <meta name="description" content="Data Visualisation Exercise 6" />
     <meta name="keywords"    content="HTML, CSS, D3"/>
     <meta name="author"      content="Ernest Soo"/>
 
-    <title>Task 6.1 D3 Interactivity</title>
+    <title>Task 6.2 D3 Interactivity - Sort</title>
 
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -19,10 +19,9 @@
 
   <body>
 
-    <h1>Update Data</h1>
+    <h1>Bar Chart with Mouse Over and Sort</h1>
 
     <div>
-      
         <div class="btn btn-add" >
           Add
         </div>
@@ -34,8 +33,6 @@
         <div class="btn btn-sort" >
           Sort
         </div>
-
-
     </div>
       
     <script>
@@ -129,12 +126,22 @@
             
         }
         
+        var sortOrder = false;
+        
         function sortBars()
         {
+            sortOrder = !sortOrder;
+            
             svg.selectAll("rect")
                 .sort(function(a,b){
-                    return d3.ascending(a,b);
+                    if(sortOrder)
+                    {
+                        return d3.ascending(a,b); 
+                    }else{
+                        return d3.descending(a,b);
+                    }
                 })
+                .transition()
                 .attr("x", function(d,i){
                     return xScale(i);
                 });
