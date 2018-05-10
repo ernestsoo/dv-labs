@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Data Visualisation Exercise 8" />
+    <meta name="keywords"    content="HTML, CSS, D3"/>
+    <meta name="author"      content="Ernest Soo"/>
+
+    <title>Task 8.1 D3 Pie Chart</title>
+
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+
+  </head>
+
+
+  <body>
+
+    <h1>Pie Chart</h1>
+
+    <script>
+
+
+    var dataset_array = [];
+
+
+      for (var i=0; i<8; i++)
+      {
+        dataset_array.push(Math.floor((Math.random() * 20) + 5));
+      }
+
+      var w = 300;
+      var h = 300;
+
+      var outerRadius = w / 2;
+      var innerRadius = 0;
+
+      var arc = d3.arc()
+                  .outerRadius(outerRadius)
+                  .innerRadius(innerRadius)
+
+      var pie = d3.pie();
+
+
+      var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+      var svg = d3.select("body")
+                    .append("svg")
+                    .attr("width",w)
+                    .attr("height",h)
+
+
+      var arcs = svg.selectAll("g.arc")
+                      .data(pie(dataset_array))
+                      .enter()
+                      .append("g")
+                      .attr("class","arc")
+                      .attr("transform", "translate(" + outerRadius +  ", 150 )");
+
+                      arcs.append("path")
+                            .attr("fill", function(d,i) {
+                                return color(i);
+                            })
+                            .attr("d", function(d,i) {
+                                return arc(d,i);
+                            });
+          arcs.append("text")
+              .attr("transform", function(d){
+                  return "translate(" + arc.centroid(d) + ")";
+              })
+              .attr("class","z-index-1")
+              .text(function(d){
+                  return d.value;
+              })
+            ;
+
+
+
+
+
+
+    </script>
+</body>
+
+
+
+
+
+</html>
